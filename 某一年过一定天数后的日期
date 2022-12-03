@@ -1,0 +1,118 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+struct Date {
+    int year;
+    char month[10];
+    int day;
+};
+void display(struct Date* date) {
+    printf("%s %d,%d\n", date->month, date->day, date->year);
+}
+void cul(int duration, struct Date culculate) {
+    int p = 0;
+    if (culculate.year % 100 == 0) {
+        if (culculate.year % 400 == 0) 
+            p = 1;
+    }
+    else {
+        if (culculate.year % 4 == 0) 
+            p = 1;
+    }
+    if (p) {
+        if (duration == 60) {
+            printf("Feb 29，%d", culculate.year);
+            return;
+        }
+        else if(duration>60)
+            duration -= 1;
+    }
+    if (duration <= 31) {
+        strcpy(culculate.month, "Jan");
+        culculate.day = duration;
+    }
+    duration -= 31;
+    if ((duration <= 28) && (duration > 0)) {
+        strcpy(culculate.month, "Feb");
+        culculate.day = duration;
+    }
+    duration -= 28;
+    if ((duration - 28 <= 31) && (duration > 0)) {
+        strcpy(culculate.month, "March");
+        
+        culculate.day = duration;
+    }
+    duration -= 31;
+    if ((duration - 31 <= 30) && (duration > 0)) {
+        strcpy(culculate.month, "April");
+        
+        culculate.day = duration;
+    }
+    duration -= 30;
+    if ((duration - 30 <= 31)&&(duration>0)) {
+        strcpy(culculate.month, "May");
+        
+        culculate.day = duration;
+    }
+    duration -= 31;
+    if ((duration - 31 <= 30) && (duration > 0)) {
+        strcpy(culculate.month, "June");
+        
+        culculate.day = duration;
+    }
+    duration -= 30;
+    if ((duration - 30 <= 31) && (duration > 0)) {
+        strcpy(culculate.month, "July");
+        
+        culculate.day = duration;
+    }
+    duration -= 31;
+    if ((duration - 31 <= 31) && (duration > 0)) {
+        strcpy(culculate.month, "August");
+        
+        culculate.day = duration;
+    }
+    duration -= 31;
+    if ((duration - 31 <= 30) &&(duration> 0)) {
+        strcpy(culculate.month, "Sep");
+        
+        culculate.day = duration;
+    }
+    duration -= 30;
+    if ((duration - 30 <= 31) && (duration > 0)){
+        strcpy(culculate.month, "Oct");
+        
+        culculate.day = duration;
+    }
+    duration -= 31;
+    if ((duration - 31 <= 30) && (duration > 0)){
+        strcpy(culculate.month, "Nov");
+        
+        culculate.day = duration;
+    }
+    duration -= 30;
+    if ((duration - 30 <= 31) && (duration > 0)){
+        strcpy(culculate.month, "Dec");
+        
+        culculate.day = duration;
+    }
+    else if (duration > 0) {
+        printf("It will be next year.\n");
+        return;
+    }
+    printf("The date is:");
+    display(&culculate);
+}
+int main()
+{
+    
+    int duration;
+    struct Date culculate;
+    printf("Please input the year：\n");
+    scanf("%d", &culculate.year);
+    printf("Please input the number of days that have passed：\n");
+    scanf("%d", &duration);
+    cul(duration, culculate);
+    
+}
